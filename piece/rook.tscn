@@ -20,7 +20,7 @@ Button/styles/hover = SubResource("StyleBoxEmpty_a0ugf")
 Button/styles/normal = SubResource("StyleBoxEmpty_hb5ab")
 Button/styles/pressed = SubResource("StyleBoxEmpty_e3s62")
 
-[node name="Rook" type="Button"]
+[node name="rook" type="Button"]
 z_index = 1
 z_as_relative = false
 y_sort_enabled = true

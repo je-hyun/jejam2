@@ -1762,7 +1762,7 @@ enabled = false
 rank = "0"
 file = "m"
 
-[node name="Rook" parent="." instance=ExtResource("6_ic2o3")]
+[node name="rook" parent="." instance=ExtResource("6_ic2o3")]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.0555556
