@@ -61,8 +61,7 @@ func _ready() -> void:
 		# Code to execute when in editor.
 		pass
 	if not Engine.is_editor_hint():
-		# Code to execute when in game.
-		pass
+		_set_is_light(is_light)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -77,7 +76,6 @@ func _process(delta: float) -> void:
 
 func _on_graphic_mouse_entered() -> void:
 	if not Engine.is_editor_hint():
-		
 		%animation.play("text_fade_in")
 
 
