@@ -1,34 +1,124 @@
-[gd_scene load_steps=4 format=3 uid="uid://b63ulhi7yvqxy"]
+[gd_scene load_steps=10 format=3 uid="uid://b63ulhi7yvqxy"]
 
 [ext_resource type="Texture2D" uid="uid://ydjoa5xghti7" path="res://space/space.png" id="1_hrbam"]
 [ext_resource type="Script" path="res://space/space.gd" id="2_yko0a"]
+[ext_resource type="Shader" path="res://space/tile.gdshader" id="3_bc8gr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p54wq"]
+resource_local_to_scene = true
+shader = ExtResource("3_bc8gr")
+shader_parameter/topleft_radius = 0.0
+shader_parameter/topright_radius = 0.0
+shader_parameter/bottomleft_radius = 0.0
+shader_parameter/bottomright_radius = 0.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_myiak"]
-font_color = Color(0, 0, 0, 1)
+resource_local_to_scene = true
+
+[sub_resource type="Animation" id="Animation_k3oiq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("rank_label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("file_label:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jex8w"]
+resource_name = "text_fade_in"
+length = 0.5
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("rank_label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("file_label:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5, 2),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_6jeho"]
+resource_name = "text_fade_out"
+length = 0.2
+step = 0.0166667
+capture_included = true
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("rank_label:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("file_label:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 2,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2yu2g"]
+_data = {
+"RESET": SubResource("Animation_k3oiq"),
+"text_fade_in": SubResource("Animation_jex8w"),
+"text_fade_out": SubResource("Animation_6jeho")
+}
 
 [node name="space" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 100.0
 offset_bottom = 100.0
+mouse_filter = 1
 script = ExtResource("2_yko0a")
 
 [node name="graphic" type="TextureRect" parent="."]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(50, 50)
-texture = ExtResource("1_hrbam")
-expand_mode = 1
-
-[node name="enabled" type="TextureRect" parent="."]
-unique_name_in_owner = true
-visible = false
-modulate = Color(0, 0, 0, 0.980392)
+material = SubResource("ShaderMaterial_p54wq")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -40,22 +130,32 @@ texture = ExtResource("1_hrbam")
 expand_mode = 1
 
 [node name="rank_label" type="Label" parent="."]
-visible = false
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "1"
 label_settings = SubResource("LabelSettings_myiak")
 
 [node name="file_label" type="Label" parent="."]
-visible = false
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "a"
@@ -63,7 +163,11 @@ label_settings = SubResource("LabelSettings_myiak")
 horizontal_alignment = 2
 vertical_alignment = 2
 
+[node name="animation" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_2yu2g")
+}
+
 [connection signal="mouse_entered" from="graphic" to="." method="_on_graphic_mouse_entered"]
 [connection signal="mouse_exited" from="graphic" to="." method="_on_graphic_mouse_exited"]
-[connection signal="mouse_entered" from="enabled" to="." method="_on_graphic_mouse_entered"]
-[connection signal="mouse_exited" from="enabled" to="." method="_on_graphic_mouse_exited"]

@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://di5s12akgv4i7"]
+
+[ext_resource type="Script" path="res://rook.gd" id="1_foc1s"]
+[ext_resource type="Texture2D" uid="uid://bm37i78e2ulcl" path="res://piece_assets/white_rook.bmp" id="2_gfvde"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2vw1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cuj8t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a0ugf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hb5ab"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e3s62"]
+
+[sub_resource type="Theme" id="Theme_7lju7"]
+Button/styles/disabled = SubResource("StyleBoxEmpty_r2vw1")
+Button/styles/focus = SubResource("StyleBoxEmpty_cuj8t")
+Button/styles/hover = SubResource("StyleBoxEmpty_a0ugf")
+Button/styles/normal = SubResource("StyleBoxEmpty_hb5ab")
+Button/styles/pressed = SubResource("StyleBoxEmpty_e3s62")
+
+[node name="Rook" type="Button"]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_7lju7")
+script = ExtResource("1_foc1s")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_gfvde")
+stretch_mode = 3
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
