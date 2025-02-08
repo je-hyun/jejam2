@@ -1,21 +1,15 @@
+#TODO: rn the piece moves when clicked. make it ask main if it's movable before dragging.
+# TODO: rn the piece moves when released. make it ask main if it's a valid spot.
+
 extends Control
 
 var board_spaces: Array[Array] # board spaces
 @onready var board: Control = $board
 
-var dragging_piece:Piece
-
-func piece_dragged(piece:Piece):
+#var dragging_piece:PieceNode
+#
+func piece_dragged(piece:PieceController):
 	print(piece.to_string() + " is being dragged")
-
-func piece_dropped(piece:Piece):
-	print(piece.to_string() + " is being dropped")
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+#
+func piece_dropped(piece:PieceController, coordinate:Vector2i):
+	print(piece.to_string() + " is being dropped to " + str(coordinate))

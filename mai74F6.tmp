@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://main.gd" id="1_e78qb"]
 [ext_resource type="Texture2D" uid="uid://cdrtac6lryslu" path="res://icon.svg" id="2_1jbrm"]
 [ext_resource type="Script" path="res://board/board.gd" id="4_1geg6"]
-[ext_resource type="PackedScene" uid="uid://bxart8vtqmy6i" path="res://piece/piece_controller.tscn" id="6_f43lv"]
+[ext_resource type="PackedScene" uid="uid://di5s12akgv4i7" path="res://piece/rook.tscn" id="6_ic2o3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h1k2c"]
 shader = ExtResource("1_3thoj")
@@ -32,6 +32,7 @@ grow_vertical = 2
 script = ExtResource("1_e78qb")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_h1k2c")
 layout_mode = 1
 anchors_preset = 15
@@ -1761,29 +1762,9 @@ enabled = false
 rank = "0"
 file = "m"
 
-[node name="debug_bg" type="ColorRect" parent="."]
+[node name="rook" parent="." instance=ExtResource("6_ic2o3")]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -27.0
-offset_right = -1608.0
-offset_bottom = 2.0
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(0, 0, 0, 1)
-
-[node name="debug_label" type="Label" parent="debug_bg"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "debug_label"
-vertical_alignment = 1
-
-[node name="piece_controller" parent="." instance=ExtResource("6_f43lv")]
-layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.0555556
+anchor_bottom = 0.1
+metadata/_edit_use_anchors_ = true

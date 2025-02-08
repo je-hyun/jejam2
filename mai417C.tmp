@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://j0svhouaq8s4"]
+[gd_scene load_steps=10 format=3 uid="uid://j0svhouaq8s4"]
 
 [ext_resource type="PackedScene" uid="uid://b63ulhi7yvqxy" path="res://space/space.tscn" id="1_0redv"]
 [ext_resource type="Shader" path="res://shared_assets/balatro.gdshader" id="1_3thoj"]
 [ext_resource type="Script" path="res://main.gd" id="1_e78qb"]
 [ext_resource type="Texture2D" uid="uid://cdrtac6lryslu" path="res://icon.svg" id="2_1jbrm"]
 [ext_resource type="Script" path="res://board/board.gd" id="4_1geg6"]
-[ext_resource type="PackedScene" uid="uid://bxart8vtqmy6i" path="res://piece/piece_controller.tscn" id="6_f43lv"]
+[ext_resource type="PackedScene" uid="uid://di5s12akgv4i7" path="res://piece/rook.tscn" id="6_ic2o3"]
+[ext_resource type="Script" path="res://piece/piece_model.gd" id="7_tll18"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h1k2c"]
 shader = ExtResource("1_3thoj")
@@ -21,6 +22,11 @@ shader_parameter/wiggle = 0.35
 shader_parameter/speed1 = 0.05
 shader_parameter/speed2 = 0.005
 shader_parameter/speed3 = 0.05
+
+[sub_resource type="Resource" id="Resource_ahyjx"]
+script = ExtResource("7_tll18")
+position = Vector2i(0, 0)
+base_piece = 0
 
 [node name="main" type="Control"]
 layout_mode = 3
@@ -1761,6 +1767,14 @@ enabled = false
 rank = "0"
 file = "m"
 
+[node name="rook" parent="." instance=ExtResource("6_ic2o3")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.0555556
+anchor_bottom = 0.1
+piece_model = SubResource("Resource_ahyjx")
+metadata/_edit_use_anchors_ = true
+
 [node name="debug_bg" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 12
@@ -1784,6 +1798,3 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "debug_label"
 vertical_alignment = 1
-
-[node name="piece_controller" parent="." instance=ExtResource("6_f43lv")]
-layout_mode = 1
