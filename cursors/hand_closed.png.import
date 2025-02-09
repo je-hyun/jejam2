@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn854ga8ldkgl"
-path="res://.godot/imported/space-corner.png-a9c0768712120e415fe579de25ddd37f.ctex"
+uid="uid://b6wgyvi44myln"
+path="res://.godot/imported/hand_closed.png-6b5918fe44c3073d12ec7be6e68735e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://space/space-corner.png"
-dest_files=["res://.godot/imported/space-corner.png-a9c0768712120e415fe579de25ddd37f.ctex"]
+source_file="res://cursors/hand_closed.png"
+dest_files=["res://.godot/imported/hand_closed.png-6b5918fe44c3073d12ec7be6e68735e3.ctex"]
 
 [params]
 

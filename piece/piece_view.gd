@@ -8,14 +8,20 @@
 class_name PieceView
 extends Control
 
-signal dragged()
-signal dropped(target_space:Vector2i)
+signal try_drag()
+signal try_drop(target_space:Vector2i)
 
-var dragging:bool = false
+var _dragging:bool = false
 var base_piece: Enums.BasePieces
+var _previous_global_position: Vector2
+
+func set_dragging(value:bool):
+	_dragging = value
+	if _dragging:
+		%sfx.play()
 
 func set_coordinates(value: Vector2i):
-	position = _coordinates_to_position(value)
+	set_global_position( _coordinates_to_position(value))
 
 func _snap_position(coordinate: Vector2, snap_amount:int=100) -> Vector2:
 	return Vector2(
@@ -35,21 +41,25 @@ func _coordinates_to_position(coordinate:Vector2i) -> Vector2:
 	)
 	return result
 
-
 func _on_button_down() -> void:
-	dragging = true
-	dragged.emit()
+	try_drag.emit()
+	_previous_global_position = global_position
+	print("hello")
+
+func snap_to_previous_position():
+	global_position = _previous_global_position
 
 func _on_button_up() -> void:
-	dragging = false
-	global_position = _snap_position(get_viewport().get_mouse_position())
-	dropped.emit(_position_to_coordinates(_snap_position(get_viewport().get_mouse_position())))
-	
+	if _dragging:
+		global_position = _snap_position(get_viewport().get_mouse_position())
+		try_drop.emit(_position_to_coordinates(_snap_position(get_viewport().get_mouse_position())))
+		set_dragging(false)
+
 func _input(event:InputEvent) -> void:
-	if event is InputEventMouseMotion and dragging:
+	if event is InputEventMouseMotion and _dragging:
 		global_position = get_viewport().get_mouse_position() - size/2
 
-func _ready() -> void:
-	assert(owner is PieceController, "Owner should be a piece controller (signal connections made based on that assumption)")
-	dragged.connect(owner._piece_dragged)
-	dropped.connect(owner._piece_dropped)
+func initialize_piece_view():
+	assert(owner is PieceController, "Owner (%s) should be a piece controller (signal connections made based on that assumption)" % owner)
+	try_drag.connect(owner._try_drag)
+	try_drop.connect(owner._try_drop)

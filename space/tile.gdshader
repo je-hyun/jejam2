@@ -4,6 +4,11 @@ uniform float topleft_radius : hint_range(0.0, 0.5) = 0.0;
 uniform float topright_radius : hint_range(0.0, 0.5) = 0.0;
 uniform float bottomleft_radius : hint_range(0.0, 0.5) = 0.0;
 uniform float bottomright_radius : hint_range(0.0, 0.5) = 0.0;
+
+
+uniform int x_pixel_size : hint_range(1, 100);
+uniform int y_pixel_size : hint_range(1, 100);
+
 vec2 scale(vec2 uv, float x, float y)
 {
 	mat2 scale = mat2(vec2(x, 0.0), vec2(0.0, y));
@@ -39,8 +44,6 @@ void fragment() {
 		+ rectangle(UV, vec2(0.5, topright_radius), vec2(1.0, 1.0 - bottomright_radius)) // right
 		+ rectangle(UV, vec2(bottomleft_radius, 0.5), vec2(1.0 - bottomright_radius, 1.0)) // bottom
 	;
-	
 	float transparency = clamp(circle_corner_transparency + rectangle_corner_transparency, 0.0, 1.0);
-	//COLOR *= texture(TEXTURE, UV) * (transparency);
 	COLOR.a *= transparency;
 }

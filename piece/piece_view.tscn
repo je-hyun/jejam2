@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://di5s12akgv4i7"]
+[gd_scene load_steps=10 format=3 uid="uid://di5s12akgv4i7"]
 
 [ext_resource type="Script" path="res://piece/piece_view.gd" id="1_cptqt"]
 [ext_resource type="Texture2D" uid="uid://bm37i78e2ulcl" path="res://piece_assets/white_rook.bmp" id="2_gfvde"]
+[ext_resource type="AudioStream" uid="uid://dh6x1xcq8ste8" path="res://audio/sfx/switch11.ogg" id="3_3gog1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2vw1"]
 
@@ -40,6 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_gfvde")
 stretch_mode = 3
 
@@ -50,7 +52,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_default_cursor_shape = 6
+mouse_default_cursor_shape = 2
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_3gog1")
+bus = &"SFX"
 
 [connection signal="button_down" from="Button" to="." method="_on_button_down"]
 [connection signal="button_up" from="Button" to="." method="_on_button_up"]

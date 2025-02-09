@@ -1,16 +1,18 @@
 [gd_scene load_steps=10 format=3 uid="uid://b63ulhi7yvqxy"]
 
-[ext_resource type="Texture2D" uid="uid://ydjoa5xghti7" path="res://space/space.png" id="1_hrbam"]
-[ext_resource type="Script" path="res://space/space.gd" id="2_yko0a"]
-[ext_resource type="Shader" path="res://space/tile.gdshader" id="3_bc8gr"]
+[ext_resource type="Script" path="res://space/space_view.gd" id="1_q010e"]
+[ext_resource type="Shader" path="res://space/tile.gdshader" id="2_kftal"]
+[ext_resource type="Texture2D" uid="uid://ydjoa5xghti7" path="res://space/space.png" id="3_3c064"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p54wq"]
 resource_local_to_scene = true
-shader = ExtResource("3_bc8gr")
+shader = ExtResource("2_kftal")
 shader_parameter/topleft_radius = 0.0
 shader_parameter/topright_radius = 0.0
 shader_parameter/bottomleft_radius = 0.0
 shader_parameter/bottomright_radius = 0.0
+shader_parameter/x_pixel_size = null
+shader_parameter/y_pixel_size = null
 
 [sub_resource type="LabelSettings" id="LabelSettings_myiak"]
 resource_local_to_scene = true
@@ -114,7 +116,7 @@ anchors_preset = 0
 offset_right = 100.0
 offset_bottom = 100.0
 mouse_filter = 1
-script = ExtResource("2_yko0a")
+script = ExtResource("1_q010e")
 
 [node name="graphic" type="TextureRect" parent="."]
 unique_name_in_owner = true
@@ -126,7 +128,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(50, 50)
-texture = ExtResource("1_hrbam")
+texture = ExtResource("3_3c064")
 expand_mode = 1
 
 [node name="rank_label" type="Label" parent="."]
@@ -162,6 +164,20 @@ text = "a"
 label_settings = SubResource("LabelSettings_myiak")
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="highlight" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 0, 0.337255)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+texture = ExtResource("3_3c064")
+expand_mode = 1
 
 [node name="animation" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

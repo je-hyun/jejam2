@@ -13,5 +13,16 @@ extends Resource
 		base_piece = value
 # TODO: how do enchantments work?
 
-func get_legal_moves(board: Array[Array]) -> Vector2i: #TODO: What type is board? flesh out
-	return Vector2.ZERO
+func set_coordinates(value:Vector2i) -> void:
+	coordinates = value
+
+func get_coordinates() -> Vector2i:
+	return coordinates;
+
+func get_legal_moves(board: BoardModel) -> Array[Vector2i]:
+	var result: Array[Vector2i] = []
+	
+	if null == board.get_pieces()[coordinates.x][coordinates.y - 1]:
+		if board.get_spaces()[coordinates.x][coordinates.y-1]:
+			result.append(Vector2i(coordinates.x, coordinates.y - 1))
+	return result
