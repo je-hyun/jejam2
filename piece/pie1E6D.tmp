@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://di5s12akgv4i7"]
+
+[ext_resource type="Script" path="res://piece/piece_view.gd" id="1_cptqt"]
+[ext_resource type="Texture2D" uid="uid://bm37i78e2ulcl" path="res://piece_assets/white_rook.bmp" id="2_gfvde"]
+[ext_resource type="Script" path="res://audio/scripts/heat_sfx.gd" id="4_pmvox"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2vw1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cuj8t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a0ugf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hb5ab"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e3s62"]
+
+[sub_resource type="Theme" id="Theme_7lju7"]
+Button/styles/disabled = SubResource("StyleBoxEmpty_r2vw1")
+Button/styles/focus = SubResource("StyleBoxEmpty_cuj8t")
+Button/styles/hover = SubResource("StyleBoxEmpty_a0ugf")
+Button/styles/normal = SubResource("StyleBoxEmpty_hb5ab")
+Button/styles/pressed = SubResource("StyleBoxEmpty_e3s62")
+
+[node name="piece_view" type="Control"]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_7lju7")
+script = ExtResource("1_cptqt")
+
+[node name="sprite" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_gfvde")
+stretch_mode = 3
+
+[node name="button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="heat_sfx" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_pmvox")
+
+[connection signal="button_down" from="button" to="." method="_on_button_down"]
+[connection signal="button_up" from="button" to="." method="_on_button_up"]

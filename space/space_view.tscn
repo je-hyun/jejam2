@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b63ulhi7yvqxy"]
+[gd_scene load_steps=12 format=3 uid="uid://b63ulhi7yvqxy"]
 
 [ext_resource type="Script" path="res://space/space_view.gd" id="1_q010e"]
 [ext_resource type="Shader" path="res://space/tile.gdshader" id="2_kftal"]
 [ext_resource type="Texture2D" uid="uid://ydjoa5xghti7" path="res://space/space.png" id="3_3c064"]
+[ext_resource type="Shader" path="res://space/highlight_tile.gdshader" id="4_d1hln"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p54wq"]
 resource_local_to_scene = true
@@ -16,6 +17,14 @@ shader_parameter/y_pixel_size = null
 
 [sub_resource type="LabelSettings" id="LabelSettings_myiak"]
 resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pwf7v"]
+shader = ExtResource("4_d1hln")
+shader_parameter/color = Color(1, 1, 1, 0.294118)
+shader_parameter/diameter = 0.4
+shader_parameter/thickness = 0.05
+shader_parameter/frequency = 0.0
+shader_parameter/phase = 0.0
 
 [sub_resource type="Animation" id="Animation_k3oiq"]
 length = 0.001
@@ -165,7 +174,7 @@ label_settings = SubResource("LabelSettings_myiak")
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="highlight" type="TextureRect" parent="."]
+[node name="highlight" type="ColorRect" parent="."]
 unique_name_in_owner = true
 visible = false
 modulate = Color(1, 1, 0, 0.337255)
@@ -176,8 +185,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(50, 50)
-texture = ExtResource("3_3c064")
-expand_mode = 1
+color = Color(1, 1, 0.133333, 0.72549)
+
+[node name="highlight2" type="ColorRect" parent="highlight"]
+modulate = Color(1, 1, 0, 0.337255)
+material = SubResource("ShaderMaterial_pwf7v")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+color = Color(1, 1, 0.133333, 0.72549)
 
 [node name="animation" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true

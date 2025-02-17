@@ -4,21 +4,29 @@
 # 3. disables input events (but not logic for when)
 # >>> Do NOT include logic for movement or game logic
 # >>> DO simply provide methods and signals
-
 class_name PieceView
 extends Control
+const SWITCH_11 = preload("res://audio/sfx/switch11.ogg")
 
+const BLACK_ROOK = preload("res://piece_assets/black_rook.bmp")
+const WHITE_ROOK = preload("res://piece_assets/white_rook.bmp")
 signal try_drag()
 signal try_drop(target_space:Vector2i)
 
 var _dragging:bool = false
-var base_piece: Enums.BasePieces
+var _base_piece: iBasePiece
 var _previous_global_position: Vector2
+
+func set_base_piece(value:iBasePiece) -> void:
+	_base_piece = value
 
 func set_dragging(value:bool):
 	_dragging = value
-	if _dragging:
-		%sfx.play()
+	%heat_sfx.play(SWITCH_11)
+	if value:
+		%button.set_default_cursor_shape(Control.CURSOR_DRAG)
+	if not value:
+		%button.set_default_cursor_shape(Control.CURSOR_POINTING_HAND)
 
 func set_coordinates(value: Vector2i):
 	set_global_position( _coordinates_to_position(value))
@@ -44,7 +52,6 @@ func _coordinates_to_position(coordinate:Vector2i) -> Vector2:
 func _on_button_down() -> void:
 	try_drag.emit()
 	_previous_global_position = global_position
-	print("hello")
 
 func snap_to_previous_position():
 	global_position = _previous_global_position
@@ -54,12 +61,20 @@ func _on_button_up() -> void:
 		global_position = _snap_position(get_viewport().get_mouse_position())
 		try_drop.emit(_position_to_coordinates(_snap_position(get_viewport().get_mouse_position())))
 		set_dragging(false)
-
+const MOUSE_OFFSET = Vector2(-8,-4)
 func _input(event:InputEvent) -> void:
 	if event is InputEventMouseMotion and _dragging:
-		global_position = get_viewport().get_mouse_position() - size/2
+		global_position = get_viewport().get_mouse_position() - size/2 - MOUSE_OFFSET
 
 func initialize_piece_view():
 	assert(owner is PieceController, "Owner (%s) should be a piece controller (signal connections made based on that assumption)" % owner)
+	%button.set_default_cursor_shape(Control.CURSOR_POINTING_HAND)
 	try_drag.connect(owner._try_drag)
 	try_drop.connect(owner._try_drop)
+
+func set_team(value:Enums.Teams) -> void:
+	match value:
+		Enums.Teams.BLACK:
+			%sprite.texture = BLACK_ROOK
+		Enums.Teams.WHITE:
+			%sprite.texture = WHITE_ROOK

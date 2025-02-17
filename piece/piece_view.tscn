@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://di5s12akgv4i7"]
+[gd_scene load_steps=11 format=3 uid="uid://di5s12akgv4i7"]
 
 [ext_resource type="Script" path="res://piece/piece_view.gd" id="1_cptqt"]
-[ext_resource type="Texture2D" uid="uid://bm37i78e2ulcl" path="res://piece_assets/white_rook.bmp" id="2_gfvde"]
-[ext_resource type="AudioStream" uid="uid://dh6x1xcq8ste8" path="res://audio/sfx/switch11.ogg" id="3_3gog1"]
+[ext_resource type="Texture2D" uid="uid://bmxk51jm0a0ax" path="res://piece_assets/black_king.png" id="2_4q64e"]
+[ext_resource type="Script" path="res://audio/scripts/heat_sfx.gd" id="4_pmvox"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r2vw1"]
 
@@ -21,8 +21,11 @@ Button/styles/hover = SubResource("StyleBoxEmpty_a0ugf")
 Button/styles/normal = SubResource("StyleBoxEmpty_hb5ab")
 Button/styles/pressed = SubResource("StyleBoxEmpty_e3s62")
 
+[sub_resource type="Curve" id="Curve_rpwhb"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="piece_view" type="Control"]
-z_index = 1
 z_as_relative = false
 y_sort_enabled = true
 layout_mode = 3
@@ -34,7 +37,8 @@ grow_vertical = 2
 theme = SubResource("Theme_7lju7")
 script = ExtResource("1_cptqt")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="sprite" type="TextureRect" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,22 +46,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("2_gfvde")
+texture = ExtResource("2_4q64e")
 stretch_mode = 3
 
-[node name="Button" type="Button" parent="."]
+[node name="button" type="Button" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_default_cursor_shape = 2
 
-[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+[node name="heat_sfx" type="Node" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("3_3gog1")
-bus = &"SFX"
+script = ExtResource("4_pmvox")
+heat_curve = SubResource("Curve_rpwhb")
 
-[connection signal="button_down" from="Button" to="." method="_on_button_down"]
-[connection signal="button_up" from="Button" to="." method="_on_button_up"]
+[connection signal="button_down" from="button" to="." method="_on_button_down"]
+[connection signal="button_up" from="button" to="." method="_on_button_up"]
